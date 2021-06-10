@@ -2,12 +2,18 @@
   <div id="App">
     <main>
       <div class="search-box">
-        <input type="text" class="search-bar" placeholder="Search..." />
+        <input 
+          type="text" 
+          class="search-bar" 
+          placeholder="Search..." 
+          v-model="query"
+          @keypress="fetchWeather"
+        />
       </div>
 
-      <div class="weather-wrap">
+      <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
         <div class="location-box">
-          <div class="location">Northampton, UK</div>
+          <div class="location">{{ weather.name }}, {{ weather.sys.country }}</div>
           <div class="date">Monday 20 January 2020</div>
         </div>
 
@@ -26,7 +32,24 @@ export default {
   name: 'App',
   data () {
     return {
-      api_key: 'f950e63e35719e5cfd79e763e3fa1b1d'
+      api_key: 'f950e63e35719e5cfd79e763e3fa1b1d',
+      url_base: 'api.openweathermap.org/data/2.5/',
+      query: '',
+      weather: {}
+    }
+  },
+
+  methods: {
+    fetchWeather (e) {
+      if (e.key == "Enter") {
+        fetch(`${this.url_base}weather?q=${this.query}&APPID=${this.api_key}`)
+          .then(res => {
+            return res.json();
+          }).then(this.setResults);
+      }
+    },
+    setResults (results) {
+      this.weather = results;
     }
   }
 }
@@ -40,7 +63,7 @@ export default {
   }
 
   body {
-    font-family: 'montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   #app {
@@ -58,7 +81,7 @@ export default {
   }
 
   .search-box {
-    width: 100%;
+    width: 96%;
     margin-bottom: 30px;
   }
 
@@ -89,10 +112,47 @@ export default {
 
   .location-box .location {
     color: #FFF;
-    front-size: 32px;
+    font-size: 32px;
     font-weight: 500;
     text-align: center;
     text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
+  }
+
+  .location-box .date {
+    color: #FFF;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    text-align: center;
+    padding: 10px 25px;
+  }
+
+  .weather-box {
+    text-align: center;
+  }
+
+  .weather-box .temp {
+    display: inline-block;
+    padding: 10px 25px;
+    color: #FFF;
+    font-size: 102px;
+    font-weight: 900;
+
+    text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    margin: 30px 0px;
+
+    box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  .weather-box .weather {
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 700;
+    font-style: italic;
+    text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+    
   }
   
 </style>
