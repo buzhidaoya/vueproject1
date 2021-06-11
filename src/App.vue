@@ -1,5 +1,5 @@
 <template>
-  <div id="App">
+  <div id="App" :class="typeof weather.main != 'undefined' && weather.main.temp > 20 ? 'warm' : ''">
     <main>
       <div class="search-box">
         <input 
@@ -70,6 +70,7 @@ export default {
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Train+One&display=swap');
   * {
     margin: 0;
     padding: 0;
@@ -77,11 +78,18 @@ export default {
   }
 
   body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Train One', cursive;
   }
 
-  #app {
+  #App {
     background-image: url('./assets/cold-bg.jpg');
+    background-size: cover;
+    background-position: bottom;
+    transition: 0.4s;
+  }
+
+  #App.warm {
+    background-image: url('./assets/warm-bg.jpg');
     background-size: cover;
     background-position: bottom;
     transition: 0.4s;
