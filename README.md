@@ -1,24 +1,15 @@
-# vue-weather
+## VueJS Weather App
 
-## Project setup
-```
-npm install
-```
+#### The first try of VueJS.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+When the temperature is greater than 20˚c, it shows the warm background.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![](./warmscreenshot.png)
+
+
+
+When the temperature is less than 20˚c, it shows the cold background.
+
+![](./coldscreenshot.png)
